@@ -1,6 +1,6 @@
 {
     "name": "asmoyo/core",
-    "description": "",
+    "description": "A core of Asmoyo cms",
     "authors": [
         {
             "name": "antoniputra",
@@ -17,8 +17,8 @@
         "mockery/mockery": "~0.9"
     },
     "autoload": {
-        "psr-0": {
-            "Asmoyo\\Core": "src/"
+        "psr-4": {
+            "Asmoyo\\Core\\": "src/Asmoyo/Core"
         }
     },
     "minimum-stability": "stable"
