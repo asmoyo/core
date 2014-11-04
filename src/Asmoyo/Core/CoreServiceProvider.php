@@ -1,6 +1,7 @@
 <?php namespace Asmoyo\Core;
 
 use Illuminate\Support\ServiceProvider;
+use Config;
 
 class CoreServiceProvider extends ServiceProvider {
 
@@ -19,6 +20,7 @@ class CoreServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('asmoyo/core');
+		$this->setConnection();
 		require_once __DIR__.'/../../filters.php';
 		require_once __DIR__.'/../../routes.php';
 	}
@@ -34,7 +36,7 @@ class CoreServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Set up the database connection
+	 * Set up the database connection, needed for multiple connection
 	 *
 	 * @return  void
 	 */
