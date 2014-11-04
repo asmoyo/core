@@ -21,8 +21,30 @@ class CoreServiceProvider extends ServiceProvider {
 	{
 		$this->package('asmoyo/core');
 		$this->setConnection();
+		$this->bindRepositories();
+
 		require_once __DIR__.'/../../filters.php';
 		require_once __DIR__.'/../../routes.php';
+	}
+
+	/**
+	 * Register the service provider.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+		//
+	}
+
+	/**
+	 * Get the services provided by the provider.
+	 *
+	 * @return array
+	 */
+	public function provides()
+	{
+		return array();
 	}
 
 	/**
@@ -30,9 +52,9 @@ class CoreServiceProvider extends ServiceProvider {
 	 *
 	 * @return  void
 	 */
-	protected function bindings()
+	protected function bindRepositories()
 	{
-
+		$this->app->bind('Asmoyo\Core\Repositories\UserRepoInterface', 'Asmoyo\Core\Repositories\UserRepo');
 	}
 
 	/**
@@ -55,26 +77,6 @@ class CoreServiceProvider extends ServiceProvider {
 		}
 
 		Config::set('database.connections.asmoyo', $asmoyoConfig);
-	}
-
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		//
-	}
-
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array();
 	}
 
 }
