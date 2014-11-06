@@ -8,11 +8,17 @@ class CategoryRepo extends BaseRepo {
 
 	public function __construct(Category $category)
 	{
+		parent::__construct($category);
 		$this->category = $category;
 	}
-	
-	public function getAll()
+
+	public function getAllWithPosts()
 	{
-		return $this->category->all();
+		return $this->category->with('posts')->get();
+	}
+
+	public function getOneWithPosts($id)
+	{
+		return $this->category->with('posts')->find($id);
 	}
 }

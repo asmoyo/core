@@ -15,4 +15,14 @@ class PostRepo extends BaseRepo {
 	{
 		return $this->post->get();
 	}
+
+	public function getById($id)
+	{
+		return $this->post->find($id);
+	}
+
+	public function create($id)
+	{
+		return $this->post->find($id);
+	}
 }

@@ -26,4 +26,14 @@ class Post extends Base {
 	{
 		return $this->belongsTo('Asmoyo\Core\Models\Category');
 	}
+
+	protected function validateCreate()
+	{
+		return array(
+			'title'		=> 'required',
+			'slug'		=> 'required',
+			'description'	=> 'required',
+			'content'	=> 'required',
+		);
+	}
 }

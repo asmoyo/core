@@ -1,6 +1,7 @@
 <?php namespace Asmoyo\Core;
 
 use Illuminate\Support\ServiceProvider;
+use Asmoyo\Core\Exceptions\ApiException;
 use Config;
 
 class CoreServiceProvider extends ServiceProvider {
@@ -22,6 +23,7 @@ class CoreServiceProvider extends ServiceProvider {
 		$this->package('asmoyo/core');
 		$this->setConnection();
 		$this->bindRepositories();
+		$this->errorHandling();
 
 		require_once __DIR__.'/../../filters.php';
 		require_once __DIR__.'/../../routes.php';
@@ -32,10 +34,7 @@ class CoreServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register()
-	{
-		//
-	}
+	public function register() {}
 
 	/**
 	 * Get the services provided by the provider.
@@ -44,7 +43,7 @@ class CoreServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('asmoyo');
 	}
 
 	/**
@@ -54,7 +53,10 @@ class CoreServiceProvider extends ServiceProvider {
 	 */
 	protected function bindRepositories()
 	{
-		$this->app->bind('Asmoyo\Core\Repositories\UserRepoInterface', 'Asmoyo\Core\Repositories\UserRepo');
+		$this->app->bind('asmoyo.user', 'Asmoyo\Core\Repositories\UserRepo');
+		$this->app->bind('asmoyo.category', 'Asmoyo\Core\Repositories\CategoryRepo');
+		$this->app->bind('asmoyo.tag', 'Asmoyo\Core\Repositories\TagRepo');
+		$this->app->bind('asmoyo.post', 'Asmoyo\Core\Repositories\PostRepo');
 	}
 
 	/**
@@ -77,6 +79,46 @@ class CoreServiceProvider extends ServiceProvider {
 		}
 
 		Config::set('database.connections.asmoyo', $asmoyoConfig);
+	}
+
+	/**
+	 * Error Handle
+	 */
+	public function errorHandling()
+	{
+		$app = $this->app;
+		$app->error(function(ApiException $e, $code)
+        {
+        	$code = $e->getCode() ?: $code;
+        	switch ($code) {
+        		case '500':
+        			$message = 'Some internal error in API';
+    			break;
+
+        		case '404':
+        			$message = 'Some of the aliases you requested do not exist : '. $_SERVER['REQUEST_URI'];
+    			break;
+
+        		case '403':
+        			$message = 'You don\'t have permissions : '. $_SERVER['REQUEST_URI'];
+    			break;
+        		
+        		default:
+        			$message = $e->getMessage();
+    			break;
+        	}
+
+	    	return \Response::json(
+	        	[
+		        	'error' 	=> [
+		                'message' 	=> $message,
+		                'type'		=> class_basename(get_class($e)),
+		                'code' 		=> $code
+		        	]
+	        	],
+	            $code
+	        );
+        });
 	}
 
 }
