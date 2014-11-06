@@ -2,6 +2,8 @@
 
 use Asmoyo\Core\Controllers\AsmoyoController;
 use Asmoyo\Core\Repositories\PostRepo;
+use Asmoyo\Core\Exceptions\ApiException;
+use Response;
 
 class PostApi extends AsmoyoController {
 
@@ -17,19 +19,7 @@ class PostApi extends AsmoyoController {
 	 */
 	public function index()
 	{
-		return $this->post->getAll();
-	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		// return Input::all();
-		return $this->post->create();
+		return $this->post->getPaginate();
 	}
 
 
@@ -54,19 +44,10 @@ class PostApi extends AsmoyoController {
 	 */
 	public function show($id)
 	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+		if ( ! $data = $this->post->getById($id)) {
+			throw new ApiException("Resource could not be found with id=$id", 404);
+		}
+		return $data;
 	}
 
 

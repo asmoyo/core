@@ -8,21 +8,22 @@ class PostRepo extends BaseRepo {
 
 	public function __construct(Post $post)
 	{
+		parent::__construct($post);
 		$this->post = $post;
 	}
-	
-	public function getAll()
+
+	public function getPaginateWithCategory()
 	{
-		return $this->post->get();
+		return $this->post->with('category')->paginate(10);
 	}
 
-	public function getById($id)
+	public function getOneWithCategory($id)
 	{
-		return $this->post->find($id);
+		if ( ! $data = $this->post->with('category')->find($id))
+		{
+			return false;
+		}
+		return $data;
 	}
 
-	public function create($id)
-	{
-		return $this->post->find($id);
-	}
 }

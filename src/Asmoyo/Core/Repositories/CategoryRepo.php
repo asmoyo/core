@@ -12,9 +12,9 @@ class CategoryRepo extends BaseRepo {
 		$this->category = $category;
 	}
 
-	public function getAllWithPosts()
+	public function getPaginateWithPosts()
 	{
-		return $this->category->with('posts')->get();
+		return $this->category->with('posts')->paginate();
 	}
 
 	public function getOneWithPosts($id)

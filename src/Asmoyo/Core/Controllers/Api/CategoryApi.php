@@ -19,18 +19,7 @@ class CategoryApi extends AsmoyoController {
 	 */
 	public function index()
 	{
-		return $this->category->getAll();
-	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+		return $this->category->getPaginate();
 	}
 
 
@@ -60,18 +49,6 @@ class CategoryApi extends AsmoyoController {
 			throw new ApiException("Resource could not be found with id=$id", 404);
 		}
 		return $data;
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
 	}
 
 

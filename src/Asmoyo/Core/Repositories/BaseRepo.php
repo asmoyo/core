@@ -27,8 +27,13 @@ abstract class BaseRepo {
     	$attributes = $attributes ?: Input::only($this->model->getFillable()) ;
     	return $this->model->newInstance($attributes);
     }
-	
+
     public function getAll()
+    {
+        return $this->model->get();
+    }
+	
+    public function getPaginate()
     {
         return $this->model->paginate(10);
     }
