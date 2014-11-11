@@ -45,8 +45,8 @@ class PostRepo extends BaseRepo {
 	}
 
 	/**
-	 * @param id
-	 * @param attr
+	 * @param id : integer
+	 * @param attr : array
 	 * @return \Eloquent\Model
 	 */
 	public function update($id, $attr = array())

@@ -16,7 +16,6 @@ class Category extends Base {
 	 */
 	protected $fillable = array('parent_id', 'title', 'slug', 'description');
 
-
 	public function posts()
 	{
 		return $this->hasMany('Asmoyo\Core\Models\Post');

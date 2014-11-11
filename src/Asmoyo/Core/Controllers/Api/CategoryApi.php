@@ -3,7 +3,8 @@
 use Asmoyo\Core\Controllers\AsmoyoController;
 use Asmoyo\Core\Repositories\CategoryRepo;
 use Asmoyo\Core\Exceptions\ApiException;
-use Response;
+use Asmoyo\Core\Exceptions\ApiValidationFailsException;
+use Response, Redirect, Input;
 
 class CategoryApi extends AsmoyoController {
 
@@ -30,23 +31,23 @@ class CategoryApi extends AsmoyoController {
 	 */
 	public function store()
 	{
-		return \Input::all();
-		return Response::json(array(
-			'success'	=> 'success',
-		));
+		if ( ! $newData = $this->category->store(Input::all()) ) {
+			throw new ApiValidationFailsException($this->category->getErrorAsString());
+		}
+		return Redirect::route('api.category.show', $newData->slug);
 	}
 
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $slug
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($slug)
 	{
-		if ( ! $data = $this->category->getById($id)) {
-			throw new ApiException("Resource could not be found with id=$id", 404);
+		if ( ! $data = $this->category->getDetail($slug)) {
+			throw new ApiException("Resource could not be found with slug=$slug", 404);
 		}
 		return $data;
 	}
@@ -60,7 +61,10 @@ class CategoryApi extends AsmoyoController {
 	 */
 	public function update($id)
 	{
-		//
+		if ( ! $newData = $this->category->update($id, Input::all()) ) {
+			throw new ApiValidationFailsException($this->category->getErrorAsString());
+		}
+		return Redirect::route('api.category.show', $newData->slug);
 	}
 
 
@@ -72,7 +76,7 @@ class CategoryApi extends AsmoyoController {
 	 */
 	public function destroy($id)
 	{
-		//
+		return $this->category->destroy($id);
 	}
 
 
