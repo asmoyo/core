@@ -10,6 +10,11 @@ class CategoryApi extends AsmoyoController {
 
 	public function __construct(CategoryRepo $category)
 	{
+		$this->beforeFilter('csrf', ['on' => ['post', 'put', 'delete']]);
+        $this->beforeFilter('asmoyo.apiFilter', [
+        	'only' => ['store', 'update', 'destroy']
+    	]);
+    	
 		$this->category = $category;
 	}
 

@@ -10,6 +10,11 @@ class PostApi extends AsmoyoController {
 
 	public function __construct(PostRepo $post)
 	{
+		$this->beforeFilter('csrf', ['on' => ['post', 'put', 'delete']]);
+        $this->beforeFilter('asmoyo.apiFilter', [
+        	'only' => ['store', 'update', 'destroy']
+    	]);
+
 		$this->post = $post;
 	}
 

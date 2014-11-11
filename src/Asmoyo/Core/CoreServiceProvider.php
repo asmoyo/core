@@ -23,7 +23,7 @@ class CoreServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('asmoyo/core');
-		$this->setConnection();
+		$this->bootstrap();
 		$this->bindRepositories();
 
 		require_once __DIR__.'/../../filters.php';
@@ -68,7 +68,7 @@ class CoreServiceProvider extends ServiceProvider {
 	 *
 	 * @return  void
 	 */
-	public function setConnection()
+	public function bootstrap()
 	{
 		$connection = Config::get('core::database.default');
 
@@ -83,6 +83,7 @@ class CoreServiceProvider extends ServiceProvider {
 		}
 
 		Config::set('database.connections.asmoyo', $asmoyoConfig);
+		Config::set('auth.model', 'Asmoyo\Core\Models\User');
 	}
 
 	/**

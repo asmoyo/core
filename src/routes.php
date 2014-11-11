@@ -2,9 +2,9 @@
 
 $api_url = Config::get('core::asmoyo.api_url_prefix');
 
-Route::group(array('prefix' => $api_url, 'before' => ['asmoyo.api']), function() {
+Route::group(['namespace' => 'Asmoyo\Core\Controllers\Api', 'prefix' => $api_url], function() {
 	
-	Route::resource('category', 'Asmoyo\Core\Controllers\Api\CategoryApi', array(
+	Route::resource('category', 'CategoryApi', array(
 		'names' => array(
 			'index'		=> 'api.category.index',
 			'show'		=> 'api.category.show',
@@ -14,7 +14,7 @@ Route::group(array('prefix' => $api_url, 'before' => ['asmoyo.api']), function()
 		),
 		'except'	=> ['create', 'edit']
 	));
-	Route::resource('post', 'Asmoyo\Core\Controllers\Api\PostApi', array(
+	Route::resource('post', 'PostApi', array(
 		'names' => array(
 			'index'		=> 'api.post.index',
 			'show'		=> 'api.post.show',
