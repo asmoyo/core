@@ -52,8 +52,7 @@ class PostRepo extends BaseRepo {
 	public function update($id, $attr = array())
 	{
 		$attr 		= $attr ?: Input::all();
-		$newData 	= $this->getById($id);
-		$newData 	= $newData->fill($attr);
+		$newData 	= $this->getById($id)->fill($attr);
 
 		if ( ! $this->validationForUpdate($id, $attr)) {
 			return false;
@@ -63,7 +62,16 @@ class PostRepo extends BaseRepo {
 		return $newData;
 	}
 
-	public function validationForCreate($attr = array())
+	/**
+	 * @param id
+	 * @return bool
+	 */
+	public function destroy($id)
+	{
+		return $this->post->where('id', $id)->delete();
+	}
+
+	protected function validationForCreate($attr = array())
 	{
 		return $this->isValid($attr, array(
 			'title'			=> 'required',
@@ -72,7 +80,7 @@ class PostRepo extends BaseRepo {
 		));
 	}
 
-	public function validationForUpdate($id, $attr = array())
+	protected function validationForUpdate($id, $attr = array())
 	{
 		return $this->isValid($attr, array(
 			'title'			=> 'required',

@@ -76,7 +76,7 @@ class PostApi extends AsmoyoController {
 	 */
 	public function destroy($id)
 	{
-		//
+		return $this->post->destroy($id);
 	}
 
 
