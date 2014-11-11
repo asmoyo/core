@@ -3,7 +3,8 @@
 use Asmoyo\Core\Controllers\AsmoyoController;
 use Asmoyo\Core\Repositories\PostRepo;
 use Asmoyo\Core\Exceptions\ApiException;
-use Response;
+use Asmoyo\Core\Exceptions\ApiValidationFailsException;
+use Response, Redirect, Input;
 
 class PostApi extends AsmoyoController {
 
@@ -30,22 +31,23 @@ class PostApi extends AsmoyoController {
 	 */
 	public function store()
 	{
-		return Response::json(array(
-			'success'	=> true,
-		));
+		if ( ! $newData = $this->post->store(Input::all()) ) {
+			throw new ApiValidationFailsException($this->post->getErrorAsString());
+		}
+		return Redirect::route('api.post.show', $newData->slug);
 	}
 
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $slug
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($slug)
 	{
-		if ( ! $data = $this->post->getById($id)) {
-			throw new ApiException("Resource could not be found with id=$id", 404);
+		if ( ! $data = $this->post->getDetail($slug)) {
+			throw new ApiException("Resource could not be found with slug=$slug", 404);
 		}
 		return $data;
 	}
@@ -59,7 +61,10 @@ class PostApi extends AsmoyoController {
 	 */
 	public function update($id)
 	{
-		//
+		if ( ! $newData = $this->post->update($id, Input::all()) ) {
+			throw new ApiValidationFailsException($this->post->getErrorAsString());
+		}
+		return Redirect::route('api.post.show', $newData->slug);
 	}
 
 

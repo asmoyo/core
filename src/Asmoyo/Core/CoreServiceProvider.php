@@ -1,7 +1,9 @@
 <?php namespace Asmoyo\Core;
 
 use Illuminate\Support\ServiceProvider;
+use Asmoyo\Core\Exceptions\Exception as AsmoyoException;
 use Asmoyo\Core\Exceptions\ApiException;
+use Asmoyo\Core\Exceptions\ApiValidationFailsException;
 use Config;
 
 class CoreServiceProvider extends ServiceProvider {
@@ -23,7 +25,6 @@ class CoreServiceProvider extends ServiceProvider {
 		$this->package('asmoyo/core');
 		$this->setConnection();
 		$this->bindRepositories();
-		$this->errorHandling();
 
 		require_once __DIR__.'/../../filters.php';
 		require_once __DIR__.'/../../routes.php';
@@ -34,7 +35,10 @@ class CoreServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register() {}
+	public function register()
+	{
+		$this->errorHandling();
+	}
 
 	/**
 	 * Get the services provided by the provider.
@@ -87,6 +91,8 @@ class CoreServiceProvider extends ServiceProvider {
 	public function errorHandling()
 	{
 		$app = $this->app;
+
+		// api several error
 		$app->error(function(ApiException $e, $code)
         {
         	$code = $e->getCode() ?: $code;
@@ -108,17 +114,28 @@ class CoreServiceProvider extends ServiceProvider {
     			break;
         	}
 
-	    	return \Response::json(
-	        	[
-		        	'error' 	=> [
-		                'message' 	=> $message,
-		                'type'		=> class_basename(get_class($e)),
-		                'code' 		=> $code
-		        	]
-	        	],
+	    	return \Response::json([
+	        	'error' 	=> [
+	                'type'		=> class_basename(get_class($e)),
+	                'code' 		=> $code,
+	                'message' 	=> $message,
+	        	]],
 	            $code
 	        );
         });
+
+        // api validation error
+        $app->error(function(ApiValidationFailsException $e, $code)
+        {
+        	return \Response::json([
+	        	'error' => [
+	                'type'		=> class_basename(get_class($e)),
+	                'code' 		=> $e->getCode() ?: 400,
+	                'message' 	=> explode(',', $e->getMessage()),
+	        	]],
+	            $code
+	        );
+    	});
 	}
 
 }
