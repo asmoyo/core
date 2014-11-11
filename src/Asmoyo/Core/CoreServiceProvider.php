@@ -124,9 +124,13 @@ class CoreServiceProvider extends ServiceProvider {
 	        );
         });
 
-        // api validation error
+        /**
+         * Api validation error
+         * default error code is 400 Bad Request
+         */
         $app->error(function(ApiValidationFailsException $e, $code)
         {
+        	$code = $e->getCode() ?: 400;
         	return \Response::json([
 	        	'error' => [
 	                'type'		=> class_basename(get_class($e)),
