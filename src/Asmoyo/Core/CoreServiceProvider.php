@@ -23,8 +23,11 @@ class CoreServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('asmoyo/core');
+
+		$this->app->register('Intervention\Image\ImageServiceProvider');
+
 		$this->bootstrap();
-		$this->bindRepositories();
+		$this->repositories();
 
 		require_once __DIR__.'/../../filters.php';
 		require_once __DIR__.'/../../routes.php';
@@ -55,9 +58,10 @@ class CoreServiceProvider extends ServiceProvider {
 	 *
 	 * @return  void
 	 */
-	protected function bindRepositories()
+	protected function repositories()
 	{
 		$this->app->bind('asmoyo.user', 'Asmoyo\Core\Repositories\UserRepo');
+		$this->app->bind('asmoyo.page', 'Asmoyo\Core\Repositories\PageRepo');
 		$this->app->bind('asmoyo.category', 'Asmoyo\Core\Repositories\CategoryRepo');
 		$this->app->bind('asmoyo.tag', 'Asmoyo\Core\Repositories\TagRepo');
 		$this->app->bind('asmoyo.post', 'Asmoyo\Core\Repositories\PostRepo');

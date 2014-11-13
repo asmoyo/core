@@ -24,6 +24,16 @@ Route::group(['namespace' => 'Asmoyo\Core\Controllers\Api', 'prefix' => $api_url
 		),
 		'except'	=> ['create', 'edit']
 	));
+	Route::resource('page', 'PageApi', array(
+		'names' => array(
+			'index'		=> 'api.page.index',
+			'show'		=> 'api.page.show',
+			'store' 	=> 'api.page.store',
+			'update' 	=> 'api.page.update',
+			'destroy' 	=> 'api.page.destroy',
+		),
+		'except'	=> ['create', 'edit']
+	));
 
 });
 
