@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration {
 			$table->string('slug');
 			$table->longText('description');
 			$table->text('content');
+			$table->string('editor_engine');
 			$table->longText('meta_title');
 			$table->longText('meta_keywords');
 			$table->longText('meta_description');
