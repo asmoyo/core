@@ -23,7 +23,6 @@ class CoreServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('asmoyo/core');
-
 		$this->app->register('Intervention\Image\ImageServiceProvider');
 
 		$this->bootstrap();

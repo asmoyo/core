@@ -1,6 +1,6 @@
 <?php
 
-$api_url = Config::get('core::asmoyo.api_url_prefix');
+$api_url = Config::get('core::asmoyo.api_prefix_url');
 
 Route::group(['namespace' => 'Asmoyo\Core\Controllers\Api', 'prefix' => $api_url], function() {
 	

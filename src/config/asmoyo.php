@@ -5,6 +5,6 @@ return array(
 	/**
 	 * Set Api prefix url
 	 */
-	'api_url_prefix'	=> 'api',
+	'api_prefix_url'	=> 'api',
 	
 );

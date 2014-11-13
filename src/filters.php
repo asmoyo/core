@@ -27,8 +27,13 @@ Route::filter('asmoyo.adminFilter', function($route, $request, $value = null)
 		}
 		else
 		{
-			return Redirect::guest('login');
+			// return Redirect::guest('login');
+			return Redirect::guest( route('backend.user.getLogin') );
 		}
 	}
 });
 
+Route::filter('asmoyo.guest', function()
+{
+	if (Auth::check()) return Redirect::route('backend.page.getIndex');
+});
