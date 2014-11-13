@@ -27,6 +27,11 @@ class Post extends Base {
 		return $this->belongsTo('Asmoyo\Core\Models\Category');
 	}
 
+	public function tags()
+	{
+		return $this->belongsToMany('Asmoyo\Core\Models\Tag');
+	}
+
 	protected function validateCreate()
 	{
 		return array(

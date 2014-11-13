@@ -16,4 +16,8 @@ class Tag extends Base {
 	 */
 	protected $fillable = array('title', 'slug', 'description');
 	
+	public function posts()
+	{
+		return $this->hasMany('Asmoyo\Core\Models\Post');
+	}
 }
