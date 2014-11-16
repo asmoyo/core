@@ -14,7 +14,7 @@ class PageRepo extends BaseRepo {
 
 	public function getAsMenu()
 	{
-		return $this->page->select('parent_id', 'title', 'slug', 'order')->orderBy('order', 'asc')->get();
+		return $this->page->select('id', 'parent_id', 'title', 'slug', 'order')->orderBy('order', 'asc')->get();
 	}
 
 	public function getDetail($slug)

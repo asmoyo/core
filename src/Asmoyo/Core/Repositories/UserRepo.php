@@ -40,6 +40,6 @@ class UserRepo extends BaseRepo {
 
 	public function logout()
 	{
-		Auth::logout();
+		return Auth::logout();
 	}
 }

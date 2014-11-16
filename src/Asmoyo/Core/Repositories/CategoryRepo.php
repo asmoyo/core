@@ -12,9 +12,14 @@ class CategoryRepo extends BaseRepo {
 		$this->category = $category;
 	}
 
-	public function getPaginate()
+	public function getPaginate($limit = 10)
 	{
-		return $this->category->with('posts')->paginate();
+		return $this->category->orderBy('created_at', 'desc')->paginate($limit);
+	}
+
+	public function getPaginateWithPost($limit = 10)
+	{
+		return $this->category->with('posts')->orderBy('created_at', 'desc')->paginate($limit);
 	}
 
 	public function getDetail($slug)
@@ -24,6 +29,24 @@ class CategoryRepo extends BaseRepo {
 			return false;
 		}
 		return $data;
+	}
+
+	/**
+	 * get as dropdown
+	 * @param field_value for value
+	 * @param field_text for display text
+	 * @return array
+	 */
+	public function getAsDropdown($field_value = 'id', $field_text = 'title')
+	{
+		$result = ['0' => 'Select Categories'];
+		$categories = $this->category->get()->toArray();
+		if ($categories) {
+			foreach ($categories as $item) {
+	            $result[$item[$field_value]] = $item[$field_text];
+	        }
+		}
+		return $result;
 	}
 
 	/**
@@ -84,7 +107,7 @@ class CategoryRepo extends BaseRepo {
 	{
 		return $this->isValid($attr, [
 			'title'			=> 'required',
-			'slug'			=> 'required|unique:'. $this->category->getTable() .',slug',
+			'slug'			=> 'required|unique:'. $this->category->getTable() .',slug,'. $id,
 			'description'	=> 'required',
 		]);
 	}

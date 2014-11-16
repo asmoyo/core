@@ -12,10 +12,18 @@ class PostRepo extends BaseRepo {
 		$this->post = $post;
 	}
 
+
 	public function getPaginate($limit = 10)
 	{
-		return $this->post->with('category')->paginate($limit);
+		return $this->post->with('category')->orderBy('created_at', 'desc')->paginate($limit);
 	}
+
+
+	public function getPaginateWithCategory($limit = 10)
+	{
+		return $this->post->with('category')->orderBy('created_at', 'desc')->paginate($limit);
+	}
+
 
 	public function getDetail($slug)
 	{
@@ -62,6 +70,7 @@ class PostRepo extends BaseRepo {
 		return $newData;
 	}
 
+
 	/**
 	 * @param id
 	 * @return bool
@@ -71,6 +80,7 @@ class PostRepo extends BaseRepo {
 		return $this->post->where('id', $id)->delete();
 	}
 
+
 	protected function validationForCreate($attr = array())
 	{
 		return $this->isValid($attr, array(
@@ -79,6 +89,7 @@ class PostRepo extends BaseRepo {
 			'description'	=> 'required',
 		));
 	}
+
 
 	protected function validationForUpdate($id, $attr = array())
 	{

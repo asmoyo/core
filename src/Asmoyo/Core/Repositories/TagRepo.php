@@ -13,7 +13,7 @@ class TagRepo extends BaseRepo {
 	
 	public function getPaginate()
 	{
-		return $this->tag->with('posts')->paginate();
+		return $this->tag->with('posts')->orderBy('created_at', 'desc')->paginate();
 	}
 
 	public function getDetail($slug)
