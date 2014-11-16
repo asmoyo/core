@@ -16,21 +16,29 @@ class Post extends Base {
 	 */
 	protected $fillable = array('user_id', 'category_id', 'title', 'slug', 'description', 'content', 'meta_title', 'meta_keywords', 'meta_description');
 
+	/**
+	 * Appends custom attribute
+	 */
+	protected $appends = array('parsed_content');
+
 
 	public function user()
 	{
 		return $this->belongsTo('Asmoyo\Core\Models\User');
 	}
 
+
 	public function category()
 	{
 		return $this->belongsTo('Asmoyo\Core\Models\Category');
 	}
 
+
 	public function tags()
 	{
 		return $this->belongsToMany('Asmoyo\Core\Models\Tag');
 	}
+
 
 	protected function validateCreate()
 	{
@@ -40,5 +48,12 @@ class Post extends Base {
 			'description'	=> 'required',
 			'content'	=> 'required',
 		);
+	}
+
+
+	public function getParsedContentAttribute()
+	{
+		$parsed = new \Parsedown();
+		return $parsed->text($this->attributes['content']);
 	}
 }

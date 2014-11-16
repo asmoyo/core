@@ -14,6 +14,7 @@ Route::filter('asmoyo.apiFilter', function($route, $request, $value = null)
 	}
 });
 
+
 /**
  * Require admin permission
  */
@@ -32,6 +33,7 @@ Route::filter('asmoyo.adminFilter', function($route, $request, $value = null)
 		}
 	}
 });
+
 
 Route::filter('asmoyo.guest', function()
 {
