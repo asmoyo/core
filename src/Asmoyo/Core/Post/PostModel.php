@@ -1,6 +1,8 @@
-<?php namespace Asmoyo\Core\Models;
+<?php namespace Asmoyo\Core\Post;
 
-class Post extends Base {
+use Asmoyo\Core\System\BaseModel;
+
+class PostModel extends BaseModel {
 
 	/**
 	 * The database table used by the model.
@@ -24,19 +26,19 @@ class Post extends Base {
 
 	public function user()
 	{
-		return $this->belongsTo('Asmoyo\Core\Models\User');
+		return $this->belongsTo('Asmoyo\Core\User\UserModel');
 	}
 
 
 	public function category()
 	{
-		return $this->belongsTo('Asmoyo\Core\Models\Category');
+		return $this->belongsTo('Asmoyo\Core\Category\CategoryModel');
 	}
 
 
 	public function tags()
 	{
-		return $this->belongsToMany('Asmoyo\Core\Models\Tag');
+		return $this->belongsToMany('Asmoyo\Core\Tag\TagModel');
 	}
 
 

@@ -1,7 +1,7 @@
 <?php namespace Asmoyo\Core\Controllers\Api;
 
 use Asmoyo\Core\Controllers\AsmoyoController;
-use Asmoyo\Core\Repositories\TagRepo;
+use Asmoyo\Core\Tag\TagRepo;
 use Asmoyo\Core\Exceptions\ApiException;
 use Asmoyo\Core\Exceptions\ApiValidationFailsException;
 use Response, Redirect, Input;

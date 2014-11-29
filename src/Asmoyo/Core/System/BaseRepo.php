@@ -1,4 +1,4 @@
-<?php namespace Asmoyo\Core\Repositories;
+<?php namespace Asmoyo\Core\System;
 
 use Asmoyo\Core\Exceptions\Exception;
 use Asmoyo\Core\Exceptions\ApiException;

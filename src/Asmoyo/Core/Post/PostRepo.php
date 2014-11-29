@@ -1,12 +1,13 @@
-<?php namespace Asmoyo\Core\Repositories;
+<?php namespace Asmoyo\Core\Post;
 
-use Asmoyo\Core\Models\Post;
+use Asmoyo\Core\System\BaseRepo;
+use Asmoyo\Core\Post\PostModel;
 
 class PostRepo extends BaseRepo {
 	
 	protected $post;
 
-	public function __construct(Post $post)
+	public function __construct(PostModel $post)
 	{
 		parent::__construct($post);
 		$this->post = $post;

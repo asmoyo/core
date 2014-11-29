@@ -1,7 +1,7 @@
 <?php namespace Asmoyo\Core\Controllers\Api;
 
 use Asmoyo\Core\Controllers\AsmoyoController;
-use Asmoyo\Core\Repositories\PostRepo;
+use Asmoyo\Core\Post\PostRepo;
 use Asmoyo\Core\Exceptions\ApiException;
 use Asmoyo\Core\Exceptions\ApiValidationFailsException;
 use Response, Redirect, Input;

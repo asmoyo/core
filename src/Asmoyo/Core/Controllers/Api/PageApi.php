@@ -1,7 +1,7 @@
 <?php namespace Asmoyo\Core\Controllers\Api;
 
 use Asmoyo\Core\Controllers\AsmoyoController;
-use Asmoyo\Core\Repositories\PageRepo;
+use Asmoyo\Core\Page\PageRepo;
 use Asmoyo\Core\Exceptions\ApiException;
 use Asmoyo\Core\Exceptions\ApiValidationFailsException;
 use Response, Redirect, Input;

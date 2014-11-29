@@ -59,11 +59,11 @@ class CoreServiceProvider extends ServiceProvider {
 	 */
 	protected function repositories()
 	{
-		$this->app->bind('asmoyo.user', 'Asmoyo\Core\Repositories\UserRepo');
-		$this->app->bind('asmoyo.page', 'Asmoyo\Core\Repositories\PageRepo');
-		$this->app->bind('asmoyo.category', 'Asmoyo\Core\Repositories\CategoryRepo');
-		$this->app->bind('asmoyo.tag', 'Asmoyo\Core\Repositories\TagRepo');
-		$this->app->bind('asmoyo.post', 'Asmoyo\Core\Repositories\PostRepo');
+		$this->app->bind('asmoyo.user', 'Asmoyo\Core\User\UserRepo');
+		$this->app->bind('asmoyo.page', 'Asmoyo\Core\Page\PageRepo');
+		$this->app->bind('asmoyo.category', 'Asmoyo\Core\Category\CategoryRepo');
+		$this->app->bind('asmoyo.tag', 'Asmoyo\Core\Tag\TagRepo');
+		$this->app->bind('asmoyo.post', 'Asmoyo\Core\Post\PostRepo');
 	}
 
 	/**
@@ -86,7 +86,7 @@ class CoreServiceProvider extends ServiceProvider {
 		}
 
 		Config::set('database.connections.asmoyo', $asmoyoConfig);
-		Config::set('auth.model', 'Asmoyo\Core\Models\User');
+		Config::set('auth.model', 'Asmoyo\Core\User\UserModel');
 	}
 
 	/**
