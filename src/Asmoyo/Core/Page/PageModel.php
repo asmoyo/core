@@ -21,7 +21,7 @@ class PageModel extends BaseModel {
 
 	public function user()
 	{
-		return $this->belongsTo('Asmoyo\Core\User\UserModel');
+		return $this->belongsTo('Asmoyo\Core\User\UserModel', 'user_id');
 	}
 
 	protected function validateCreate()

@@ -1,9 +1,8 @@
 <?php namespace Asmoyo\Core\Page;
 
 use Asmoyo\Core\System\BaseRepo;
-use Asmoyo\Core\Page\PageModel;
 
-class PageRepo extends BaseRepo {
+class PageRepo extends BaseRepo implements PageInterface {
 	
 	protected $page;
 
