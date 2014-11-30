@@ -1,12 +1,13 @@
-<?php namespace Asmoyo\Core\Repositories;
+<?php namespace Asmoyo\Core\Tag;
 
-use Asmoyo\Core\Models\Tag;
+use Asmoyo\Core\System\BaseRepo;
+use Asmoyo\Core\Tag\TagModel;
 
 class TagRepo extends BaseRepo {
 	
 	protected $tag;
 
-	public function __construct(Tag $tag)
+	public function __construct(TagModel $tag)
 	{
 		$this->tag = $tag;
 	}

@@ -1,12 +1,13 @@
-<?php namespace Asmoyo\Core\Repositories;
+<?php namespace Asmoyo\Core\Page;
 
-use Asmoyo\Core\Models\Page;
+use Asmoyo\Core\System\BaseRepo;
+use Asmoyo\Core\Page\PageModel;
 
 class PageRepo extends BaseRepo {
 	
 	protected $page;
 
-	public function __construct(Page $page)
+	public function __construct(PageModel $page)
 	{
 		parent::__construct($page);
 		$this->page = $page;

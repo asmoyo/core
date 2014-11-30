@@ -1,11 +1,12 @@
-<?php namespace Asmoyo\Core\Models;
+<?php namespace Asmoyo\Core\User;
 
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Asmoyo\Core\System\BaseModel;
 
-class User extends Base implements UserInterface, RemindableInterface {
+class UserModel extends BaseModel implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
@@ -33,6 +34,6 @@ class User extends Base implements UserInterface, RemindableInterface {
 
 	public function posts()
 	{
-		return $this->hasMany('Asmoyo\Core\Models\Post');
+		return $this->hasMany('Asmoyo\Core\Post\PostModel');
 	}
 }

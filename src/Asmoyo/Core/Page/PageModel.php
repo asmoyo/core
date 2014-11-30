@@ -1,6 +1,8 @@
-<?php namespace Asmoyo\Core\Models;
+<?php namespace Asmoyo\Core\Page;
 
-class Page extends Base {
+use Asmoyo\Core\System\BaseModel;
+
+class PageModel extends BaseModel {
 
 	/**
 	 * The database table used by the model.
@@ -19,7 +21,7 @@ class Page extends Base {
 
 	public function user()
 	{
-		return $this->belongsTo('Asmoyo\Core\Models\User');
+		return $this->belongsTo('Asmoyo\Core\User\UserModel');
 	}
 
 	protected function validateCreate()

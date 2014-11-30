@@ -1,12 +1,13 @@
-<?php namespace Asmoyo\Core\Repositories;
+<?php namespace Asmoyo\Core\Category;
 
-use Asmoyo\Core\Models\Category;
+use Asmoyo\Core\System\BaseRepo;
+use Asmoyo\Core\Category\CategoryModel;
 
 class CategoryRepo extends BaseRepo {
 	
 	protected $category;
 
-	public function __construct(Category $category)
+	public function __construct(CategoryModel $category)
 	{
 		parent::__construct($category);
 		$this->category = $category;

@@ -1,9 +1,9 @@
-<?php namespace Asmoyo\Core\Models;
+<?php namespace Asmoyo\Core\System;
 
 use \Illuminate\Database\Eloquent\Model;
 use Config;
 
-abstract class Base extends Model {
+abstract class BaseModel extends Model {
 	
     public function getConnection()
     {

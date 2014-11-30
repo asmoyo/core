@@ -1,6 +1,8 @@
-<?php namespace Asmoyo\Core\Models;
+<?php namespace Asmoyo\Core\Tag;
 
-class Tag extends Base {
+use Asmoyo\Core\System\BaseModel;
+
+class TagModel extends BaseModel {
 
 	/**
 	 * The table associated with the model.
@@ -18,6 +20,6 @@ class Tag extends Base {
 	
 	public function posts()
 	{
-		return $this->hasMany('Asmoyo\Core\Models\Post');
+		return $this->hasMany('Asmoyo\Core\Post\PostModel');
 	}
 }
