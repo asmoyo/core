@@ -1,9 +1,8 @@
 <?php namespace Asmoyo\Core\Category;
 
 use Asmoyo\Core\System\BaseRepo;
-use Asmoyo\Core\Category\CategoryModel;
 
-class CategoryRepo extends BaseRepo {
+class CategoryRepo extends BaseRepo implements CategoryInterface {
 	
 	protected $category;
 

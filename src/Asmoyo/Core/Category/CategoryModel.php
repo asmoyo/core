@@ -20,6 +20,6 @@ class CategoryModel extends BaseModel {
 
 	public function posts()
 	{
-		return $this->hasMany('Asmoyo\Core\Post\PostModel');
+		return $this->hasMany('Asmoyo\Core\Post\PostModel', 'category_id');
 	}
 }
