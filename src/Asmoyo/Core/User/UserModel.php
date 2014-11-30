@@ -34,6 +34,6 @@ class UserModel extends BaseModel implements UserInterface, RemindableInterface 
 
 	public function posts()
 	{
-		return $this->hasMany('Asmoyo\Core\Post\PostModel');
+		return $this->hasMany('Asmoyo\Core\Post\PostModel', 'user_id');
 	}
 }

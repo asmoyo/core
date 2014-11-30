@@ -1,10 +1,9 @@
 <?php namespace Asmoyo\Core\User;
 
 use Asmoyo\Core\System\BaseRepo;
-use Asmoyo\Core\User\UserModel;
 use Auth;
 
-class UserRepo extends BaseRepo {
+class UserRepo extends BaseRepo implements UserInterface {
 	
 	protected $user;
 
