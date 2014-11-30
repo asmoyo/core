@@ -1,9 +1,8 @@
 <?php namespace Asmoyo\Core\Post;
 
 use Asmoyo\Core\System\BaseRepo;
-use Asmoyo\Core\Post\PostModel;
 
-class PostRepo extends BaseRepo {
+class PostRepo extends BaseRepo implements PostInterface {
 	
 	protected $post;
 

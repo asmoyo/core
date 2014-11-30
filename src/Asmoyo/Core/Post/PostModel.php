@@ -26,19 +26,13 @@ class PostModel extends BaseModel {
 
 	public function user()
 	{
-		return $this->belongsTo('Asmoyo\Core\User\UserModel');
+		return $this->belongsTo('Asmoyo\Core\User\UserModel', 'user_id');
 	}
 
 
 	public function category()
 	{
-		return $this->belongsTo('Asmoyo\Core\Category\CategoryModel');
-	}
-
-
-	public function tags()
-	{
-		return $this->belongsToMany('Asmoyo\Core\Tag\TagModel');
+		return $this->belongsTo('Asmoyo\Core\Category\CategoryModel', 'category_id');
 	}
 
 
