@@ -1,12 +1,12 @@
 <?php namespace Asmoyo\Core\Controllers\Api;
 
-use Asmoyo\Core\Controllers\AsmoyoController;
+use Asmoyo\Core\Controllers\Api\ApiController;
 use Asmoyo\Core\Tag\TagRepo;
 use Asmoyo\Core\Exceptions\ApiException;
 use Asmoyo\Core\Exceptions\ApiValidationFailsException;
 use Response, Redirect, Input;
 
-class TagApi extends AsmoyoController {
+class TagApi extends ApiController {
 
 	public function __construct(TagRepo $tag)
 	{

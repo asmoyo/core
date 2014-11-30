@@ -1,14 +1,14 @@
 <?php namespace Asmoyo\Core\Controllers\Api;
 
-use Asmoyo\Core\Controllers\AsmoyoController;
-use Asmoyo\Core\Page\PageRepo;
+use Asmoyo\Core\Controllers\Api\ApiController;
+use Asmoyo\Core\Page\PageInterface;
 use Asmoyo\Core\Exceptions\ApiException;
 use Asmoyo\Core\Exceptions\ApiValidationFailsException;
 use Response, Redirect, Input;
 
-class PageApi extends AsmoyoController {
+class PageApi extends ApiController {
 
-	public function __construct(PageRepo $page)
+	public function __construct(PageInterface $page)
 	{
 		$this->beforeFilter('csrf', ['on' => ['page', 'put', 'delete']]);
         $this->beforeFilter('asmoyo.apiFilter', [

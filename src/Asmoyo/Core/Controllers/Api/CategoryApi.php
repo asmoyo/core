@@ -1,20 +1,19 @@
 <?php namespace Asmoyo\Core\Controllers\Api;
 
-use Asmoyo\Core\Controllers\AsmoyoController;
-use Asmoyo\Core\Category\CategoryRepo;
+use Asmoyo\Core\Controllers\Api\ApiController;
+use Asmoyo\Core\Category\CategoryInterface;
 use Asmoyo\Core\Exceptions\ApiException;
 use Asmoyo\Core\Exceptions\ApiValidationFailsException;
 use Response, Redirect, Input;
 
-class CategoryApi extends AsmoyoController {
+class CategoryApi extends ApiController {
 
-	public function __construct(CategoryRepo $category)
+	public function __construct(CategoryInterface $category)
 	{
 		$this->beforeFilter('csrf', ['on' => ['post', 'put', 'delete']]);
         $this->beforeFilter('asmoyo.apiFilter', [
         	'only' => ['store', 'update', 'destroy']
     	]);
-    	
 		$this->category = $category;
 	}
 

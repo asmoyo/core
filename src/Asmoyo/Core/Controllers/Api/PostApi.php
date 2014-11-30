@@ -1,14 +1,14 @@
 <?php namespace Asmoyo\Core\Controllers\Api;
 
-use Asmoyo\Core\Controllers\AsmoyoController;
-use Asmoyo\Core\Post\PostRepo;
+use Asmoyo\Core\Controllers\Api\ApiController;
+use Asmoyo\Core\Post\PostInterface;
 use Asmoyo\Core\Exceptions\ApiException;
 use Asmoyo\Core\Exceptions\ApiValidationFailsException;
 use Response, Redirect, Input;
 
-class PostApi extends AsmoyoController {
+class PostApi extends ApiController {
 
-	public function __construct(PostRepo $post)
+	public function __construct(PostInterface $post)
 	{
 		$this->beforeFilter('csrf', ['on' => ['post', 'put', 'delete']]);
         $this->beforeFilter('asmoyo.apiFilter', [
