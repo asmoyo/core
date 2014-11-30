@@ -15,6 +15,7 @@ class CoreServiceProvider extends ServiceProvider {
 	 */
 	protected $defer = false;
 
+
 	/**
 	 * Bootstrap the application events.
 	 *
@@ -25,22 +26,23 @@ class CoreServiceProvider extends ServiceProvider {
 		$this->package('asmoyo/core');
 		$this->app->register('Intervention\Image\ImageServiceProvider');
 
-		$this->bootstrap();
-		$this->repositories();
+		$this->registerConnection();
+		$this->registerRepository();
+		$this->registerAsmoyo();
+		$this->errorHandler();
 
 		require_once __DIR__.'/../../filters.php';
 		require_once __DIR__.'/../../routes.php';
 	}
+
 
 	/**
 	 * Register the service provider.
 	 *
 	 * @return void
 	 */
-	public function register()
-	{
-		$this->errorHandling();
-	}
+	public function register() {}
+
 
 	/**
 	 * Get the services provided by the provider.
@@ -52,26 +54,13 @@ class CoreServiceProvider extends ServiceProvider {
 		return array('asmoyo');
 	}
 
-	/**
-	 * Bind repositories.
-	 *
-	 * @return  void
-	 */
-	protected function repositories()
-	{
-		$this->app->bind('asmoyo.user', 'Asmoyo\Core\User\UserRepo');
-		$this->app->bind('asmoyo.page', 'Asmoyo\Core\Page\PageRepo');
-		$this->app->bind('asmoyo.category', 'Asmoyo\Core\Category\CategoryRepo');
-		$this->app->bind('asmoyo.tag', 'Asmoyo\Core\Tag\TagRepo');
-		$this->app->bind('asmoyo.post', 'Asmoyo\Core\Post\PostRepo');
-	}
 
 	/**
 	 * Set up the database connection, needed for multiple connection
 	 *
 	 * @return  void
 	 */
-	public function bootstrap()
+	public function registerConnection()
 	{
 		$connection = Config::get('core::database.default');
 
@@ -89,10 +78,44 @@ class CoreServiceProvider extends ServiceProvider {
 		Config::set('auth.model', 'Asmoyo\Core\User\UserModel');
 	}
 
+
 	/**
-	 * Error Handle
+	 * [registerRepository description]
+	 * @return void
 	 */
-	public function errorHandling()
+	protected function registerRepository()
+	{
+		$this->app->bind('Asmoyo\Core\User\UserInterface', 'Asmoyo\Core\User\UserRepo');
+		$this->app->bind('Asmoyo\Core\Page\PageInterface', 'Asmoyo\Core\Page\PageRepo');
+		$this->app->bind('Asmoyo\Core\Category\CategoryInterface', 'Asmoyo\Core\Category\CategoryRepo');
+		$this->app->bind('Asmoyo\Core\Post\PostInterface', 'Asmoyo\Core\Post\PostRepo');
+	}
+
+
+	/**
+	 * [registerAsmoyo description]
+	 * @return void
+	 */
+	protected function registerAsmoyo()
+	{
+		$this->app['asmoyo'] = $this->app->share(function($app)
+        {
+            return new \Asmoyo\Core\Asmoyo;
+        });
+
+		$this->app->booting(function()
+        {
+			$loader = \Illuminate\Foundation\AliasLoader::getInstance();
+	        $loader->alias('Asmoyo', 'Asmoyo\Core\System\AsmoyoFacade');
+        });
+	}
+
+	
+	/**
+	 * [errorHandler description]
+	 * @return void
+	 */
+	public function errorHandler()
 	{
 		$app = $this->app;
 
@@ -127,6 +150,7 @@ class CoreServiceProvider extends ServiceProvider {
 	            $code
 	        );
         });
+
 
         /**
          * Api validation error
